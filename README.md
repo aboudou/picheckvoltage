@@ -30,10 +30,10 @@ Requirements
 	* For the status LEDs:
 		* One green LED (good battery voltage status LED)
 		* One yellow LED (low battery voltage status LED)
-		* Two 330Ω resistors
+		* Two 330Ω resistors
 	* For the voltage measurement unit:
 		* One MCP3008 (ADC chip used to read battery voltage)
-		* One 10kΩ (R1, connected to positive rail) and one 3.9 kΩ (R2, connected to ground rail) resistor for the voltage divider. These values are chosen to step down voltage from an eight NiMH battery pack — 11.2V max — to about 3.2V max. You may want to adapt these values according the battery pack you choose. Formula for voltage divider is : Vout = Vin * (R2 / (R1 + R2). In this case: 11.2 * (3.9 / (10 + 3.9)) = 3.14
+		* One 10kΩ (R1, connected to positive rail) and one 3.9 kΩ (R2, connected to ground rail) resistor for the voltage divider. These values are chosen to step down voltage from an eight NiMH battery pack — 11.2V max — to about 3.2V max. You may want to adapt these values according the battery pack you choose. Formula for voltage divider is : Vout = Vin * (R2 / (R1 + R2). In this case: 11.2 * (3.9 / (10 + 3.9)) = 3.14
 	* For the voltage regulation unit:
 		* One BY299 diode (2A diode)
 		* One L78S05CV voltage regulator (2A 5V voltage regulator)
@@ -47,6 +47,19 @@ To help you with the assembly, you may refer to the following files :
 * You may need to download and install [Raspberry Part](https://github.com/adafruit/Fritzing-Library/blob/master/AdaFruit.fzbz) for Fritzing
 * picheckvoltage.fzz (into “doc” folder): the assembly mockup to open with Fritzing 
   ([http://fritzing.org/](http://fritzing.org/))
+
+
+Electronic assembly
+-------------------
+
+Mockup on breadboard:
+![Mockup on breadboard](/imgs/mockup.png "Mockup on breadboard")
+
+Electronic schematics:
+![Electronic schematics](/imgs/schematic.png "Electronic schematics")
+
+Live install on [MovingRaspiPlus](https://github.com/aboudou/movingraspi)
+![Live install on MovingRaspiPlus](http://farm9.staticflickr.com/8254/8666239532_48da91064d_c.jpg "Live install on MovingRaspiPlus")
 
 
 How to use PiCheckVoltage
