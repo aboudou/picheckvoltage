@@ -6,8 +6,8 @@ PiCheckVoltage is a project for the [Raspberry Pi](http://raspberrypi.org) inten
 PiCheckVoltage is made of three hardware parts and one software part:
 
 * A voltage regulation unit, which take voltage from the battery pack and provides a +5V regulated power line (to power some IC like port expanders, motor drivers, even Raspberry Pi itself)
-* A voltage measure unit, which check battery pack voltage after it is stepped down to a 0V to 3.3V range by a resitor divider.
-* Two status LEDs, which can display if battery pack voltage is good or to low.
+* A voltage measurement unit, which check battery pack voltage after it is stepped down to a 0V to 3.3V range by a resistor divider.
+* Two status LEDs, which can display if battery pack voltage is good or too low.
 * A program to run on the Raspberry Pi, which read mesured voltage, drive status LEDs, and can start three user provided scripts when the battery pack voltage reaches three different levels:
 	* 0V level: a.k.a. unplugged battery pack
 	* low battery level: when voltage reaches a value which is near to be dangerously low for the batteries
@@ -31,7 +31,7 @@ Requirements
 		* One green LED (good battery voltage status LED)
 		* One yellow LED (low battery voltage status LED)
 		* Two 330Ω resistors
-	* For the voltage measure unit:
+	* For the voltage measurement unit:
 		* One MCP3008 (ADC chip used to read battery voltage)
 		* One 10kΩ (R1, connected to positive rail) and one 3.9 kΩ (R2, connected to ground rail) resistor for the voltage divider. These values are chosen to step down voltage from an eight NiMH battery pack — 11.2V max — to about 3.2V max. You may want to adapt these values according the battery pack you choose. Formula for voltage divider is : Vout = Vin * (R2 / (R1 + R2). In this case: 11.2 * (3.9 / (10 + 3.9)) = 3.14
 	* For the voltage regulation unit:
@@ -59,5 +59,3 @@ Then update "config.py" file to fit your needs. Each option is documented.
 When you're done, just launch RasPiLEDmeter with `./picheckvoltage.sh start` as
   root user and that's all :-) When you want / need to stop
   it, just execute `./picheckvoltage.sh stop` as root user.
-
-
