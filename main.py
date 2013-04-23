@@ -6,18 +6,38 @@ import os
 import signal
 import subprocess
 
+import threading
+import socket
+
 from config import *
 from mcp3008 import *
 
 STATUSNOBAT = 0
 STATUSLOWBAT = 0
 STATUSGOODBAT = 0
+ret = 0
 
 ### Functions definition
+
+def runSocketServer():
+    s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+    s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+    s.bind((TCPHOST, TCPPORT))
+    s.listen(1)
+    while True:
+        conn, addr = s.accept()
+        conn.sendall(str(ADCLOW)+'|'
+        +str(ret)+'|'
+        +str(ADCHIGH)+'||'
+        +str(BATNUMBER*LOWBATVOLT)+'|'
+        +str(ret*(BATNUMBER*FULLBATVOLT)/1024)+'|'
+        +str(BATNUMBER*FULLBATVOLT))
+        conn.close()
 
 # Called on process interruption. Set all pins to "Input" default mode.
 def endProcess(signalnum = None, handler = None):
     GPIO.cleanup()
+    socketThread._Thread__stop()
     if STATUSGOODBAT == 1:
         try:
             p = subprocess.Popen(NOBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
@@ -61,6 +81,10 @@ GPIO.setmode(GPIO.BOARD)
 
 # Init output pins
 initPins()
+
+socketThread = threading.Thread(None, runSocketServer, None, (), {})
+socketThread.daemon = True
+socketThread.start()
 
 while True:
     # Read ADC measure on channel ADCCHANNEL

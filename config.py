@@ -58,5 +58,11 @@ ADCUNP = 300 # No battery plugged
 # Refresh rate (ms)
 REFRESH_RATE = 1000
 
+# Hostname or IP address to listen for network queries. '' for all interfaces
+# 
+TCPHOST = ''
+# TCP port
+TCPPORT = 50007
+
 # Display some debug values when set to 1, and nothing when set to 0
 DEBUGMSG = 0
