@@ -73,7 +73,7 @@ When you're done, just launch RasPiLEDmeter with `./picheckvoltage.sh start` as 
 
 PiCheckVoltage provides a network interface to querie battery status through network. Just connect to it (default port is 50007), and status will be immediately sent, with the following format :
 
-`<low voltage ADC value>|<current voltage adc value>|<max voltage adc value>||<low voltage value>|<current voltage value>|<max voltage value>`
+> \<low voltage ADC value\>|\<current voltage adc value\>|\<max voltage adc value\>||\<low voltage value\>|\<current voltage value\>|\<max voltage value\>
 
 * Voltage ADC value is a number between 0 and 1023
 * Voltage value is a number using Volt unit
@@ -87,4 +87,4 @@ An example return value could be : `731.332897319|853|975.110529758||8.4|9.32968
 * Current battery voltage is around 9.33V .
 * Maximum battery voltage is 11.2V.
 
-Note : ADC value for maximum voltage may not be equal to 1023 as we have to deal with the imprecision of the resistor voltage divider. With the given example, voltage reference for the ADC is 3.3V (+3.3V power line from Raspberry Pi), and the used resistor divider (10kΩ and 3.9kΩ resistors) steps down 11.2V to 3.14V, not speaking of resistor tolerance.
+Note : ADC value for maximum voltage may not be equal to 1023 as we have to deal with the imprecision of the resistor voltage divider. With the given example, voltage reference for the ADC is 3.3V (+3.3V power line from Raspberry Pi), and the used resistor divider (10kΩ and 3.9kΩ resistors) steps down 11.2V to 3.14V, not speaking of resistor tolerance.
