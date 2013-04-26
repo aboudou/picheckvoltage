@@ -31,7 +31,7 @@ def runSocketServer():
         +str(ret)+'|'
         +str(ADCHIGH)+'||'
         +str(BATNUMBER*LOWBATVOLT)+'|'
-        +str(ret*(BATNUMBER*FULLBATVOLT)/1024)+'|'
+        +str((ret*(BATNUMBER*FULLBATVOLT)/1024)*VCOMP)+'|'
         +str(BATNUMBER*FULLBATVOLT))
         conn.close()
 

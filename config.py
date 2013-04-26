@@ -26,9 +26,9 @@ KILLPIN = 13
 BATNUMBER = 8.0
 #BATNUMBER = 3.0
 # Fully charged voltage (for a single battery); 
-#   i.e. 1.4V for a NiMH battery, or 3.8V for a LiPo battery
+#   i.e. 1.4V for a NiMH battery, or 4.2V for a LiPo battery
 FULLBATVOLT = 1.4
-#FULLBATVOLT = 3.8
+#FULLBATVOLT = 4.2
 # Discharged voltage (for a single battery); 
 #   i.e. 1.05V for a NiMH battery, or 3.1V for a LiPo battery
 #   You should use a conservative value in order to avoid destructive
@@ -60,21 +60,32 @@ VLOWBAT = (BATNUMBER*LOWBATVOLT)*(LOWRESVAL)/(LOWRESVAL+HIGHRESVAL)
 #   low
 VDNGBAT = (BATNUMBER*DNGBATVOLT)*(LOWRESVAL)/(LOWRESVAL+HIGHRESVAL)
 
+# ADC voltage reference (3.3V for Raspberry Pi)
+ADCVREF = 3.3
+
+# Compensation due to the difference between ADC voltage reference and 
+#   max value for voltage through resistor divider
+#   i.e. : with the given resistances values, VREF is 3.3 V, and max voltage
+#   through resistor divider is about 3.14V, leading to about 4.8% deviation.
+# This compensation is used to correct computed battery voltage return by
+#   network queries
+VCOMP = 1+(ADCVREF-VHIGHBAT)/ADCVREF
+
 ## Define expected ADC values
 # MCP23008 channel to use (from 0 to 7)
 ADCCHANNEL = 0
 # MCP23008 should return this value when batteries are fully charged
 #  * 3.3 is the reference voltage (got from Raspberry Pi's +3.3V power line)
 #  * 1024.0 is the number of possible values (MCP23008 is a 10 bit ADC)
-ADCHIGH = VHIGHBAT / (3.3 / 1024.0)
+ADCHIGH = VHIGHBAT / (ADCVREF / 1024.0)
 # MCP23008 should return this value when batteries are discharged
 #  * 3.3 is the reference voltage (got from Raspberry Pi's +3.3V power line)
 #  * 1024.0 is the number of possible values (MCP23008 is a 10 bit ADC)
-ADCLOW = VLOWBAT / (3.3 / 1024.0)
+ADCLOW = VLOWBAT / (ADCVREF / 1024.0)
 # MCP23008 should return this value when batteries atteigns dangerous voltage
 #  * 3.3 is the reference voltage (got from Raspberry Pi's +3.3V power line)
 #  * 1024.0 is the number of possible values (MCP23008 is a 10 bit ADC)
-ADCDNG = VDNGBAT / (3.3 / 1024.0)
+ADCDNG = VDNGBAT / (ADCVREF / 1024.0)
 # MCP should return a value lower than this one when no battery is plugged.
 # You should not use 0 because value is floatting around 0 / 150 when nothing
 #  is plugged to a analog channel. 
