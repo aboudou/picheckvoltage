@@ -7,7 +7,7 @@
 NOBAT_SCRIPT_PATH = ["/root/raspberrypi/movingraspi/MovingRaspiPlus/Server/movingraspi.sh", "stop"]
 # Script to run when battery voltage is dangerously low (array with script then
 #   parameters)
-DNGBAT_SCRIPT_PATH = ["/root/batterymail.sh"]
+DNGBAT_SCRIPT_PATH = ["/root/pcvscripts/batterymail.sh", "&"]
 # Script to run when battery voltage is low (array with script then parameters)
 KOBAT_SCRIPT_PATH = ["/root/raspberrypi/movingraspi/MovingRaspiPlus/Server/movingraspi.sh", "stop"]
 # Script to run when battery voltage is good (array with script then parameters)

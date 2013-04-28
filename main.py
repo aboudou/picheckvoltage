@@ -42,8 +42,8 @@ def endProcess(signalnum = None, handler = None):
     if STATUSGOODBAT == 1:
         try:
             p = subprocess.Popen(NOBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
-        except OSError:
-            print ("Could not execute " + NOBAT_SCRIPT_PATH)
+        except OSError as detail:
+            print ("Could not execute " + NOBAT_SCRIPT_PATH[0] + " ", detail)
     exit(0)
 
 if DEBUGMSG == 1:
@@ -110,8 +110,8 @@ while True:
                 STATUSDNGBAT = 0
                 STATUSLOWBAT = 0
                 STATUSGOODBAT = 0
-            except OSError:
-                print ("Could not execute " + NOBAT_SCRIPT_PATH)
+            except OSError as detail:
+                print ("Could not execute " + NOBAT_SCRIPT_PATH[0] + " ", detail)
 
     elif ret < ADCDNG:
         # Dangerous battery voltage : we switch OK LED off, KO LED on,
@@ -126,8 +126,8 @@ while True:
                 STATUSDNGBAT = 1
                 STATUSLOWBAT = 0
                 STATUSGOODBAT = 0
-            except OSError:
-                print ("Could not execute " + DNGBAT_SCRIPT_PATH)
+            except OSError as detail:
+                print ("Could not execute " + DNGBAT_SCRIPT_PATH[0] + " ", detail)
     
     elif ret < ADCLOW:
         # Low battery voltage : we switch OK LED off, KO LED on, 
@@ -142,8 +142,8 @@ while True:
                 STATUSDNGBAT = 0 
                 STATUSLOWBAT = 1 
                 STATUSGOODBAT = 0
-            except OSError:
-                print ("Could not execute " + KOBAT_SCRIPT_PATH)
+            except OSError as detail:
+                print ("Could not execute " + KOBAT_SCRIPT_PATH[0] + " ", detail)
 
     else:
         # Normal battery voltage : we switch OK LED on, KO LED off, 
@@ -158,8 +158,8 @@ while True:
                 STATUSDNGBAT = 0
                 STATUSLOWBAT = 0
                 STATUSGOODBAT = 1
-            except OSError:
-                print ("Could not execute " + OKBAT_SCRIPT_PATH)
+            except OSError as detail:
+                print ("Could not execute " + OKBAT_SCRIPT_PATH[0] + " ", detail)
 
     # Pause before starting loop once again
     time.sleep(REFRESH_RATE / 1000)
