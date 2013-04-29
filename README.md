@@ -75,6 +75,10 @@ Then update "config.py" file to fit your needs. Each option is documented.
 
 When you're done, just launch RasPiLEDmeter with `./picheckvoltage.sh start` as root user and that's all :-) When you want / need to stop it, just execute `./picheckvoltage.sh stop` as root user.
 
+
+Network interface
+-----------------
+
 PiCheckVoltage provides a network interface to querie battery status through network. Just connect to it (default port is 50007), and status will be immediately sent, with the following format :
 
 > \<low voltage ADC value\>|\<current voltage adc value\>|\<max voltage adc value\>||\<low voltage value\>|\<current voltage value\>|\<max voltage value\>
@@ -92,3 +96,13 @@ An example return value could be : `731.332897319|853|975.110529758||8.4|9.32968
 * Maximum battery voltage is 11.2V.
 
 Note : ADC value for maximum voltage may not be equal to 1023 as we have to deal with the imprecision of the resistor voltage divider. With the given example, voltage reference for the ADC is 3.3V (+3.3V power line from Raspberry Pi), and the used resistor divider (10kΩ and 3.9kΩ resistors) steps down 11.2V to 3.14V, not speaking of resistor tolerance.
+
+
+SIGFOX network push
+-------------------
+
+PiCheckVoltage is able to communicate with a SIGFOX serial modem to push battery status to this IoT (Internet of Things) network. Pushed value is current battery voltage, truncated to 10 characters and converted to hexadecimal. Tested modem is TD1202 Evaluation Board. See http://www.sigfox.com for more information.
+
+To use SIGFOX push, you'll have to enable it from “config.py” file, and install PySerial module (on Debian / Raspbian, install package “python-serial”.
+
+Altough originaly intended to be used with a SIGFOX modem, this feature may be used with any serial device.

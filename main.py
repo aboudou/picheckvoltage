@@ -12,6 +12,14 @@ import socket
 from config import *
 from mcp3008 import *
 
+if SIGFOX_ENABLE == 1:
+  try:
+    import serial
+  except ImportError:
+    print ("Unable to import PySerial")
+    exit (-1)
+
+
 STATUSNOBAT = 0
 STATUSDNGBAT = 0
 STATUSLOWBAT = 0
@@ -27,12 +35,7 @@ def runSocketServer():
     s.listen(1)
     while True:
         conn, addr = s.accept()
-        conn.sendall(str(ADCLOW)+'|'
-        +str(ret)+'|'
-        +str(ADCHIGH)+'||'
-        +str(BATNUMBER*LOWBATVOLT)+'|'
-        +str((ret*(BATNUMBER*FULLBATVOLT)/1024)*VCOMP)+'|'
-        +str(BATNUMBER*FULLBATVOLT))
+        conn.sendall(networkData())
         conn.close()
 
 # Called on process interruption. Set all pins to "Input" default mode.
@@ -44,15 +47,11 @@ def endProcess(signalnum = None, handler = None):
             p = subprocess.Popen(NOBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
         except OSError as detail:
             print ("Could not execute " + NOBAT_SCRIPT_PATH[0] + " ", detail)
-    exit(0)
 
-if DEBUGMSG == 1:
-  print("Batteries high voltage:       " + str(VHIGHBAT))
-  print("Batteries low voltage:        " + str(VLOWBAT))
-  print("Batteries dangerous voltage:  " + str(VDNGBAT))
-  print("ADC high voltage value:       " + str(ADCHIGH))
-  print("ADC low voltage value:        " + str(ADCLOW))
-  print("ADC dangerous voltage value:  " + str(ADCDNG))
+    if SIGFOX_ENABLE == 1:
+        sigfox.close()
+
+    exit(0)
 
 # Put pins to out mode and low state.
 def initPins():
@@ -63,8 +62,29 @@ def initPins():
     GPIO.output(LOWVOLTPIN, GPIO.LOW)
     GPIO.output(KILLPIN, GPIO.LOW)
 
+# Build data send remotely (TCP or SIGFOX network)
+def networkData():
+    return (str(ADCLOW)+'|'
+       +str(ret)+'|'
+       +str(ADCHIGH)+'||'
+       +str(BATNUMBER*LOWBATVOLT)+'|'
+       +str((ret*(BATNUMBER*FULLBATVOLT)/1024)*VCOMP)+'|'
+       +str(BATNUMBER*FULLBATVOLT))
+
+
+def sigfoxData():
+    return str((ret*(BATNUMBER*FULLBATVOLT)/1024)*VCOMP)[:10]
 
 ### Main part
+
+if DEBUGMSG == 1:
+    print("Batteries high voltage:       " + str(VHIGHBAT))
+    print("Batteries low voltage:        " + str(VLOWBAT))
+    print("Batteries dangerous voltage:  " + str(VDNGBAT))
+    print("ADC high voltage value:       " + str(ADCHIGH))
+    print("ADC low voltage value:        " + str(ADCLOW))
+    print("ADC dangerous voltage value:  " + str(ADCDNG))
+
 
 # Get current pid
 pid = os.getpid()
@@ -91,6 +111,17 @@ initPins()
 socketThread = threading.Thread(None, runSocketServer, None, (), {})
 socketThread.daemon = True
 socketThread.start()
+
+sigfox = None;
+sigfoxPush = 0;
+if SIGFOX_ENABLE == 1:
+    sigfox = serial.Serial(port=SIGFOX_DEVICE, 
+                           baudrate=SIGFOX_DEV_BR, 
+                           parity=SIGFOX_DEV_PAR,
+                           stopbits=SIGFOX_DEV_SB,
+                           bytesize=SIGFOX_DEV_BS)
+
+
 
 while True:
     # Read ADC measure on channel ADCCHANNEL
@@ -160,6 +191,22 @@ while True:
                 STATUSGOODBAT = 1
             except OSError as detail:
                 print ("Could not execute " + OKBAT_SCRIPT_PATH[0] + " ", detail)
+
+    # Push data to SIGFOX network
+    if SIGFOX_ENABLE == 1:
+        if sigfoxPush % (SIGFOX_PUSH_RATE / REFRESH_RATE) == 0:
+            import datetime
+            today = datetime.datetime.today()
+            sigfox.write("at$ss=" + sigfoxData().encode("hex") + "\r")
+            if DEBUGMSG == 1:
+                print today.strftime("%Y-%m-%d %H:%M:%S - Sent to SIGFOX: " 
+                                   + sigfoxData().encode("hex")
+                                   + " a.k.a " + sigfoxData() 
+                                   + "(V) in hexadecimal")
+        sigfoxPush = sigfoxPush + 1
+        # You don't want the counter to become too big :)
+        if sigfoxPush > (SIGFOX_PUSH_RATE / REFRESH_RATE):
+            sigfoxPush = 1
 
     # Pause before starting loop once again
     time.sleep(REFRESH_RATE / 1000)

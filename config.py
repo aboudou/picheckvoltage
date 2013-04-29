@@ -95,10 +95,25 @@ ADCUNP = 300 # No battery plugged
 REFRESH_RATE = 1000
 
 # Hostname or IP address to listen for network queries. '' for all interfaces
-# 
 TCPHOST = ''
 # TCP port
 TCPPORT = 50007
+
+# Enable to possibility to push battery values to SIGFOX network
+#   http://www.sigfox.com/ for more information.
+SIGFOX_ENABLE = 1
+# SIGFOX device serial device
+SIGFOX_DEVICE = "/dev/ttyUSB0"
+# SIGFOX device baud rate
+SIGFOX_DEV_BR = 9600
+# SIGFOX device byte size (5 to 8)
+SIGFOX_DEV_BS = 8
+# SIGFOX device parity ("[N]one", "[E]ven", "[O]dd", "[M]ark", "[S]pace")
+SIGFOX_DEV_PAR = "N"
+# SIGFOX device stop bits (1, 1.5, 2)
+SIGFOX_DEV_SB = 1
+# SIGFOX push rate (ms, MUST be a multiple of REFRESH_RATE)
+SIGFOX_PUSH_RATE = 30000
 
 # Display some debug values when set to 1, and nothing when set to 0
 DEBUGMSG = 0
