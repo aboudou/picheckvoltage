@@ -101,7 +101,7 @@ TCPPORT = 50007
 
 # Enable to possibility to push battery values to SIGFOX network
 #   http://www.sigfox.com/ for more information.
-SIGFOX_ENABLE = 1
+SIGFOX_ENABLE = 0
 # SIGFOX device serial device
 SIGFOX_DEVICE = "/dev/ttyUSB0"
 # SIGFOX device baud rate

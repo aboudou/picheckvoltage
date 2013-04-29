@@ -101,7 +101,9 @@ Note : ADC value for maximum voltage may not be equal to 1023 as we have to deal
 SIGFOX network push
 -------------------
 
-PiCheckVoltage is able to communicate with a SIGFOX serial modem to push battery status to this IoT (Internet of Things) network. Pushed value is current battery voltage, truncated to 10 characters and converted to hexadecimal. Tested modem is TD1202 Evaluation Board. See http://www.sigfox.com for more information.
+PiCheckVoltage is able to communicate with a SIGFOX serial modem to push battery status to this IoT (Internet of Things) network. Pushed value is current battery voltage, truncated to 10 characters and converted to hexadecimal. Tested modem is TD1202 Evaluation Board.
+
+SIGFOX is a cellular network operator which provides a low cost data transmission service. The service is completely dedicated to low throughput Machine-to-Machine/ Internet of Things applications. See [http://www.sigfox.com](http://www.sigfox.com) for more information.
 
 To use SIGFOX push, you'll have to enable it from “config.py” file, and install PySerial module (on Debian / Raspbian, install package “python-serial”.
 
