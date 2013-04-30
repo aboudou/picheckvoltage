@@ -113,7 +113,6 @@ SIGFOX_DEV_PAR = "N"
 # SIGFOX device stop bits (1, 1.5, 2)
 SIGFOX_DEV_SB = 1
 # SIGFOX push rate (ms, MUST be a multiple of REFRESH_RATE)
-#SIGFOX_PUSH_RATE = 30000
 SIGFOX_PUSH_RATE = 300000
 
 # Display some debug values when set to 1, and nothing when set to 0
