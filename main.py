@@ -135,12 +135,12 @@ while True:
         GPIO.output(LOWVOLTPIN, GPIO.LOW)
         GPIO.output(KILLPIN, GPIO.LOW)
         if STATUSNOBAT == 0:
+            STATUSNOBAT = 1
+            STATUSDNGBAT = 0
+            STATUSLOWBAT = 0
+            STATUSGOODBAT = 0
             try:
                 p = subprocess.Popen(NOBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
-                STATUSNOBAT = 1
-                STATUSDNGBAT = 0
-                STATUSLOWBAT = 0
-                STATUSGOODBAT = 0
             except OSError as detail:
                 print ("Could not execute " + NOBAT_SCRIPT_PATH[0] + " ", detail)
 
@@ -151,12 +151,12 @@ while True:
         GPIO.output(LOWVOLTPIN, GPIO.HIGH)
         GPIO.output(KILLPIN, GPIO.LOW)
         if STATUSDNGBAT == 0:
+            STATUSNOBAT = 0
+            STATUSDNGBAT = 1
+            STATUSLOWBAT = 0
+            STATUSGOODBAT = 0
             try:
                 p = subprocess.Popen(DNGBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
-                STATUSNOBAT =0 
-                STATUSDNGBAT = 1
-                STATUSLOWBAT = 0
-                STATUSGOODBAT = 0
             except OSError as detail:
                 print ("Could not execute " + DNGBAT_SCRIPT_PATH[0] + " ", detail)
     
@@ -167,12 +167,12 @@ while True:
         GPIO.output(LOWVOLTPIN, GPIO.HIGH)
         GPIO.output(KILLPIN, GPIO.HIGH)
         if STATUSLOWBAT == 0:
+            STATUSNOBAT = 0
+            STATUSDNGBAT = 0 
+            STATUSLOWBAT = 1 
+            STATUSGOODBAT = 0
             try:
                 p = subprocess.Popen(KOBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
-                STATUSNOBAT = 0
-                STATUSDNGBAT = 0 
-                STATUSLOWBAT = 1 
-                STATUSGOODBAT = 0
             except OSError as detail:
                 print ("Could not execute " + KOBAT_SCRIPT_PATH[0] + " ", detail)
 
@@ -183,12 +183,12 @@ while True:
         GPIO.output(LOWVOLTPIN, GPIO.LOW)
         GPIO.output(KILLPIN, GPIO.HIGH)
         if STATUSGOODBAT == 0:
+            STATUSNOBAT = 0
+            STATUSDNGBAT = 0
+            STATUSLOWBAT = 0
+            STATUSGOODBAT = 1
             try:
                 p = subprocess.Popen(OKBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
-                STATUSNOBAT = 0
-                STATUSDNGBAT = 0
-                STATUSLOWBAT = 0
-                STATUSGOODBAT = 1
             except OSError as detail:
                 print ("Could not execute " + OKBAT_SCRIPT_PATH[0] + " ", detail)
 
