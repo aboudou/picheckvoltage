@@ -71,7 +71,7 @@ How to use PiCheckVoltage
 
 You'll first have to build the electronic assembly, then plug it to the Raspberry Pi
 
-Then update "config.py" file to fit your needs. Each option is documented.
+Then copy "config.py.example" file to "config.py" and edit it to fit your needs. Each option is documented.
 
 When you're done, just launch RasPiLEDmeter with `./picheckvoltage.sh start` as root user and that's all :-) When you want / need to stop it, just execute `./picheckvoltage.sh stop` as root user.
 

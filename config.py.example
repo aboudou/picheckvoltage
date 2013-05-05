@@ -30,16 +30,16 @@ BATNUMBER = 8.0
 FULLBATVOLT = 1.4
 #FULLBATVOLT = 4.2
 # Discharged voltage (for a single battery); 
-#   i.e. 1.05V for a NiMH battery, or 3.1V for a LiPo battery
+#   i.e. 1.05V for a NiMH battery, or 3.4V for a LiPo battery
 #   You should use a conservative value in order to avoid destructive
 #   discharging
 LOWBATVOLT = 1.05
-#LOWBATVOLT = 3.1
+#LOWBATVOLT = 3.4
 # Dangerous voltage (for a single battery);
-#   i.e. 1.0V for a NiMH battery, or 3.05V for a LiPo battery
+#   i.e. 1.0V for a NiMH battery, or 3.2V for a LiPo battery
 #   You should really not go below this voltage.
 DNGBATVOLT = 1.0
-#DNGBATVOLT = 3.05
+#DNGBATVOLT = 3.2
 
 # Value (in ohms) of the lower resistor from the voltage divider, connected to
 #   the ground line (1 if no voltage divider). Default value (3900) is for a 
@@ -90,6 +90,10 @@ ADCDNG = VDNGBAT / (ADCVREF / 1024.0)
 # You should not use 0 because value is floatting around 0 / 150 when nothing
 #  is plugged to a analog channel. 
 ADCUNP = 300 # No battery plugged
+# Maximal MCP return value to consider as "voltage bounce" when kill switch is
+#  activated and voltage rises again as current use is reduced. This avoid to
+#  switch from dangerous mode to low battery mode and back for a long time.
+ADCDNGBOUNCE = ADCDNG + 200
 
 # Refresh rate (ms)
 REFRESH_RATE = 1000

@@ -161,20 +161,24 @@ while True:
                 print ("Could not execute " + DNGBAT_SCRIPT_PATH[0] + " ", detail)
     
     elif ret < ADCLOW:
-        # Low battery voltage : we switch OK LED off, KO LED on, 
-        #   and run KOBAT_SCRIPT_PATH
-        GPIO.output(GOODVOLTPIN, GPIO.LOW)
-        GPIO.output(LOWVOLTPIN, GPIO.HIGH)
-        GPIO.output(KILLPIN, GPIO.HIGH)
-        if STATUSLOWBAT == 0:
-            STATUSNOBAT = 0
-            STATUSDNGBAT = 0 
-            STATUSLOWBAT = 1 
-            STATUSGOODBAT = 0
-            try:
-                p = subprocess.Popen(KOBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
-            except OSError as detail:
-                print ("Could not execute " + KOBAT_SCRIPT_PATH[0] + " ", detail)
+        # Test if we were previously in dangerous status and are actually
+        #   encountering a voltage bounce situation after kill switch
+        #   activation. 
+        if STATUSDNGBAT == 1 and ret > ADCDNGBOUNCE:
+            # Low battery voltage : we switch OK LED off, KO LED on, 
+            #   and run KOBAT_SCRIPT_PATH
+            GPIO.output(GOODVOLTPIN, GPIO.LOW)
+            GPIO.output(LOWVOLTPIN, GPIO.HIGH)
+            GPIO.output(KILLPIN, GPIO.HIGH)
+            if STATUSLOWBAT == 0:
+                STATUSNOBAT = 0
+                STATUSDNGBAT = 0 
+                STATUSLOWBAT = 1 
+                STATUSGOODBAT = 0
+                try:
+                    p = subprocess.Popen(KOBAT_SCRIPT_PATH, stdout=subprocess.PIPE)
+                except OSError as detail:
+                    print ("Could not execute " + KOBAT_SCRIPT_PATH[0] + " ", detail)
 
     else:
         # Normal battery voltage : we switch OK LED on, KO LED off, 
