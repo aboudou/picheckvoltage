@@ -63,8 +63,7 @@ Electronic schematics:
 ![Electronic schematics](/imgs/schematic.png "Electronic schematics")
 
 Live install on [MovingRaspiPlus](https://github.com/aboudou/movingraspi)
-![Live install on MovingRaspiPlus](http://farm9.staticflickr.com/8254/8666239532_48da91064d_c.jpg "Live install on MovingRaspiPlus")
-
+![Live install on MovingRaspiPlus](http://farm9.staticflickr.com/8254/8666239532_4e708423b7_c.jpg "Live install on MovingRaspiPlus")
 
 How to use PiCheckVoltage
 -------------------------
