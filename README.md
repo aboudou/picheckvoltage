@@ -18,7 +18,7 @@ PiCheckVoltage is made of three hardware parts and one software part:
 	* good battery level: when voltage is over low battery level
 
 
-You can see the live electronic assembly for PiCheckVoltage on [this photo](http://www.flickr.com/photos/aboudou/8666239532/) which is used to manage [MovingRaspi](https://goddess-gate.com/dc2/index.php/pages/movingraspi.en) 
+You can see the live electronic assembly for PiCheckVoltage on [this photo](http://www.flickr.com/photos/aboudou/8666239532/) which is used to manage [MovingRaspi](https://goddess-gate.com/projects/en/raspi/movingraspi) 
 
 Credits
 -------
