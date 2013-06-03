@@ -1,7 +1,7 @@
 PiCheckVoltage
 ==============
 
-* [Project's website](https://goddess-gate.com/projects/en/raspi/picheckvoltage)
+* [Project's website](http://goddess-gate.com/projects/en/raspi/picheckvoltage)
 
 PiCheckVoltage is a project for the [Raspberry Pi](http://raspberrypi.org) intended to provide a mean to check voltage of a battery pack which is used to power electronic assemblies connected to the Raspberry Pi.
 
@@ -18,7 +18,7 @@ PiCheckVoltage is made of three hardware parts and one software part:
 	* good battery level: when voltage is over low battery level
 
 
-You can see the live electronic assembly for PiCheckVoltage on [this photo](http://www.flickr.com/photos/aboudou/8666239532/) which is used to manage [MovingRaspi](https://goddess-gate.com/projects/en/raspi/movingraspi) 
+You can see the live electronic assembly for PiCheckVoltage on [this photo](http://www.flickr.com/photos/aboudou/8666239532/) which is used to manage [MovingRaspi](http://goddess-gate.com/projects/en/raspi/movingraspi) 
 
 Credits
 -------
@@ -108,6 +108,6 @@ SIGFOX is a cellular network operator which provides a low cost data transmissio
 
 To use SIGFOX push, you'll have to enable it from “config.py” file, and install PySerial module (on Debian / Raspbian, install package “python-serial”.
 
-You can see [on this page](https://goddess-gate.com/sigfox/) live data pushed by my SIGFOX modem.
+You can see [on this page](http://goddess-gate.com/sigfox/) live data pushed by my SIGFOX modem.
 
 Altough originaly intended to be used with a SIGFOX modem, this feature may be used with any serial device.
